@@ -1,103 +1,284 @@
-import Image from "next/image";
+"use client";
+import Link from "next/link"; // ✅ Correct routing link
+import { ArrowRight } from "lucide-react"; // ✅ Icon only
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import Image from "next/image"; // ✅ Next.js Image component for optimized images
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { features, testimonials, creditBenefits } from "@/lib/data"; // ✅ Importing data
+// import Pricing from "@/components/Pricing"; // ✅ Importing Pricing component
+import { Stethoscope } from "lucide-react"; // ✅ Icon for the credit system description
+import { Typewriter } from 'react-simple-typewriter';
+import { Swiper, SwiperSlide } from 'swiper/react'; // ✅ Swiper for testimonials
+import { Pagination, Autoplay } from 'swiper/modules'; // ✅ Swiper modules for pagination  
+import 'swiper/css'; // ✅ Swiper styles
+import 'swiper/css/pagination'; // ✅ Swiper pagination styles  
+import 'swiper/css/autoplay'; // ✅ Swiper autoplay styles
+
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.js
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className="bg-background">
+      <section className="relative-overflow-hidden py-32">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div className="space-y-8">
+            <Badge variant="secondary" className="bg-emerald-900/30 border-emerald-700/40 px-4 py-2 text-emerald-400 text-sm font-medium">HealthCare Made Easy
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+            </Badge>
+               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
+             Connect with Doctors <br />
+           <span className="gradient-title">
+            <Typewriter words={['Anytime', 'Anywhere', 'Easily']} loop />
+            </span>
+              </h1>
+              <p className="text-md md:text-xl text-muted-foreground text-gray-300">Book appointments, consult with specialists, and manage your health with ease.</p>
+             <div className="flex flex-col sm:flex-row gap-4">
+              <Button asChild size="lg" className="bg-emerald-500 text-white hover:bg-emerald-700 bg-emerald-500 hover:bg-emerald-600 transition-all duration-300 hover:scale-90" >
+                <Link href={"/onboarding"}>
+                Get Started
+                <ArrowRight className="ml-2 h-2 w-4 animate-bounce " />
+              </Link>
+              </Button>
+
+
+
+               <Button 
+               asChild
+                size="lg"
+                variant={"outline"} 
+                className="bg-emerald-700/30 hover:bg-gray-400" >
+                <Link href={"/doctors"}>
+                Find a Doctor
+                <ArrowRight className="ml-2 h-2 w-4" />
+              </Link></Button>
+             </div>
+             
+              </div>
+            
+            <div className="relative mx-[34px] my-[34px] h-[635px] w-[580px] rounded-xl overflow-hidden  shadow-md ">
+              <Image
+              src="/heropage.png"
+              alt="Doctor consultation"
+              fill
+              priority
+              className="object-cover rounded-xl"
+               />
+            </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="py-20 bg-muted/30">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              How It Works
+            </h2>
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+              Our platform makes healthcare accessible with just a few clicks
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {features.map((feature, index) => (
+              <Card
+                key={index}
+                className="bg-card border-emerald-900/20 hover:border-emerald-300/40 hover:border-b-2 transition-all duration-300"
+              >
+                <CardHeader className="pb-2">
+                  <div className="bg-emerald-900/20 p-3 rounded-lg w-fit mb-4 hover:shadow-2xl hover:scale-200 transition-all duration-300">
+                    {feature.icon}
+                  </div>
+                  <CardTitle className="text-xl font-semibold text-white">
+                    {feature.title}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground">{feature.description}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Pricing Section with green medical styling */}
+      <section id="pricing" className="py-20">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <Badge
+              variant="outline"
+              className="bg-emerald-900/30 border-emerald-700/30 px-4 py-1 text-emerald-400 text-sm font-medium mb-4"
+            >
+              Affordable Healthcare
+            </Badge>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              Consultation Packages
+            </h2>
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+              Choose the perfect consultation package that fits your healthcare
+              needs
+            </p>
+          </div>
+
+          <div className="mx-auto">
+            {/* Clerk Pricing Table
+            <Pricing /> */}
+
+            {/* Description */}
+            <Card className="mt-12 bg-muted/20 border-emerald-900/30">
+              <CardHeader>
+                <CardTitle className="text-xl font-semibold text-white flex items-center">
+                  <Stethoscope className="h-5 w-5 mr-2 text-emerald-400" />
+                  How Our Credit System Works
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-3">
+                  {creditBenefits.map((benefit, index) => (
+                    <li key={index} className="flex items-start">
+                      <div className="mr-2 mt-1 bg-emerald-900/20 p-1 rounded-full">
+                        <svg
+                          className="h-4 w-4 text-emerald-400"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M5 13l4 4L19 7"
+                          ></path>
+                        </svg>
+                      </div>
+                      <p
+                        className="text-muted-foreground"
+                        dangerouslySetInnerHTML={{ __html: benefit }}
+                      />
+                    </li>
+                  ))}
+                </ul>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials with green medical accents */}
+   {/* Testimonials with Swiper */}
+<section className="py-20 bg-muted/30">
+  <div className="container mx-auto px-4">
+    <div className="text-center mb-16">
+      <Badge
+        variant="outline"
+        className="bg-emerald-900/30 border-emerald-700/30 px-4 py-1 text-emerald-400 text-sm font-medium mb-4"
+      >
+        Success Stories
+      </Badge>
+      <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+        What Our Users Say
+      </h2>
+      <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+        Hear from patients and doctors who use our platform
+      </p>
+    </div>
+
+    <div className="w-full max-w-7xl mx-auto">
+      <Swiper
+        modules={[Pagination, Autoplay]}
+        pagination={{ clickable: true }}
+        autoplay={{ delay: 3000, disableOnInteraction: false }}
+        spaceBetween={30}
+          loop={true}
+        slidesPerView={3}
+       centeredSlides={true}
+       centerInsufficientSlides={true}
+        breakpoints={{
+            0: { slidesPerView: 1 },
+           768: { slidesPerView: 2 },
+          1024: { slidesPerView: 3 }
+        }}
+        className="!overflow-visible !pb-12"
+      >
+        {testimonials.map((testimonial, index) => (
+          <SwiperSlide key={index} className="h-full">
+            <Card className="h-full border-emerald-900/20 hover:border-emerald-300/40 transition-all">
+              <CardContent className="pt-6 h-full flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center mb-4">
+                    <div className="w-12 h-12 rounded-full bg-emerald-900/20 flex items-center justify-center mr-4">
+                      <span className="text-emerald-400 font-bold">
+                        {testimonial.initials}
+                      </span>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-white">
+                        {testimonial.name}
+                      </h4>
+                      <p className="text-sm text-muted-foreground">
+                        {testimonial.role}
+                      </p>
+                    </div>
+                  </div>
+                  <p className="text-muted-foreground">
+                    &quot;{testimonial.quote}&quot;
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </div>
+  </div>
+</section>
+
+
+
+      {/* CTA Section with green medical styling */}
+      <section className="py-20">
+        <div className="container mx-auto px-4">
+          <Card className="bg-gradient-to-r from-emerald-900/30 to-emerald-700/60 border-emerald-800/20">
+            <CardContent className="p-8 md:p-12 lg:p-16 relative overflow-hidden">
+              <div className="max-w-2xl relative z-10">
+                <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+                  Ready to take control of your healthcare?
+                </h2>
+                <p className="text-lg text-muted-foreground mb-8">
+                  Join thousands of users who have simplified their healthcare
+                  journey with our platform. Get started today and experience
+                  healthcare the way it should be.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <Button
+                    asChild
+                    size="lg"
+                    className="bg-emerald-600 text-white hover:bg-emerald-700"
+                  >
+                    <Link href="/sign-up">Sign Up Now</Link>
+                  </Button>
+                  <Button
+                    asChild
+                    variant="outline"
+                    size="lg"
+                    className="border-emerald-700/30 hover:bg-muted/80"
+                  >
+                    <Link href="#pricing">View Pricing</Link>
+                  </Button>
+                </div>
+              </div>
+
+              {/* Decorative healthcare elements */}
+              <div className="absolute right-0 top-0 w-[300px] h-[300px] bg-emerald-800/10 rounded-full blur-3xl -mr-20 -mt-20">toast</div>
+              <div className="absolute left-0 bottom-0 w-[200px] h-[200px] bg-emerald-700/10 rounded-full blur-3xl -ml-10 -mb-10"></div>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
     </div>
   );
 }
