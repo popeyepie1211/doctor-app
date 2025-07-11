@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image"; // ✅ Next.js Image component for optimized images
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { features, testimonials, creditBenefits } from "@/lib/data"; // ✅ Importing data
-// import Pricing from "@/components/Pricing"; // ✅ Importing Pricing component
+import Pricing from "@/components/Pricing"; // ✅ Importing Pricing component
 import { Stethoscope } from "lucide-react"; // ✅ Icon for the credit system description
 import { Typewriter } from 'react-simple-typewriter';
 import { Swiper, SwiperSlide } from 'swiper/react'; // ✅ Swiper for testimonials
@@ -124,8 +124,10 @@ export default function Home() {
           </div>
 
           <div className="mx-auto">
-            {/* Clerk Pricing Table
-            <Pricing /> */}
+            
+            {/* Clerk Pricing Table */}
+            
+            <Pricing />
 
             {/* Description */}
             <Card className="mt-12 bg-muted/20 border-emerald-900/30">
