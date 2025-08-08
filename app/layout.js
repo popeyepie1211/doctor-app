@@ -4,6 +4,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import Header from "@/components/Header";
 import { dark } from "@clerk/themes";
 import { ClerkProvider } from "@clerk/nextjs";
+import { Toaster } from "sonner";
 
 
 
@@ -17,37 +18,29 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <ClerkProvider
-     appearance={{
-        baseTheme: dark,
-      }}
-      >
-    <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${inter.className}`}
-      >
-        <ThemeProvider
+    <ClerkProvider publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY} frontendApi={process.env.NEXT_PUBLIC_CLERK_FRONTEND_API} appearance={{ baseTheme: dark }}>
+      <html lang="en" suppressHydrationWarning>
+        <body className={`${inter.className}`}>
+          <ThemeProvider
             attribute="class"
             defaultTheme="dark"
             enableSystem
             disableTransitionOnChange
           >
-           
-          </ThemeProvider>
-        <main className="min-h-screen">{children}</main>
-        
             <Header />
-        <footer className="bg-muted/50 py-12">
-          <div className="container mx-auto px-4 text-center text-gray-300">
-            <p>
-              Made with Love
-            </p>
-          </div>
-        </footer>
+            <main className="min-h-screen">{children}</main>
+            <Toaster/>
 
 
-      </body>
-    </html>
+            <footer className="bg-muted/50 py-12">
+              <div className="container mx-auto px-4 text-center text-gray-300">
+                <p>Made with Love</p>
+              </div>
+            </footer>
+          </ThemeProvider>
+        </body>
+      </html>
     </ClerkProvider>
   );
 }
+

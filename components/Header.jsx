@@ -152,7 +152,7 @@ const Header = async() => {
                   userEmail: 'text-xs text-muted-foreground',
                 },
               }}
-               afterSignOutUrl="/" />
+                />
             </SignedIn>
            </div>
 
