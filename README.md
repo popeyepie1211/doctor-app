@@ -1,6 +1,6 @@
-# 🩺 DocMate — Your Digital Healthcare Companion
+# 🩺 MediBit — Your Digital Healthcare Companion
 
-Welcome to **DocMate**, a sleek and secure doctor appointment booking platform that connects patients with verified healthcare professionals in just a few clicks. Built with modern technologies to make healthcare more accessible and efficient.
+Welcome to **MediBit**, a sleek and secure doctor appointment booking platform that connects patients with verified healthcare professionals in just a few clicks. Built with modern technologies to make healthcare more accessible and efficient.
 
 🚀 *Book smart. Treat faster. Heal better.*
 
