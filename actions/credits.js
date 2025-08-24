@@ -6,6 +6,8 @@ import { auth } from "@clerk/nextjs/server";
 
 import { db } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";    
+import { toast } from "sonner";
+
 
 const PLAN_CREDITS = {
     free_user: 0,
@@ -77,7 +79,7 @@ if(
    transactionMonth === currentMonth &&
         transactionPlan === currentPlan   // Check if the last transaction is from the current month and matches the current plan
       ) {
-        return user;
+        return user;  // If the user has already received credits for this month, return the user
       }
     }
 
@@ -119,4 +121,98 @@ const updatedUser = await db.$transaction(async (tx) => {
     );
     return null;
   }
+}
+
+
+export async function creditsDeduction(userId, doctorId) { // Function to deduct credits for an appointment
+    try { 
+        const user= await db.user.findUnique({
+            where: {
+                id: userId,
+            }
+
+        });
+
+        if (!user) {
+            throw new Error("User not found");
+        }
+
+        const doctor = await db.user.findUnique({
+            where: {
+                id: doctorId,
+            },
+        });
+        if (!doctor) {
+            throw new Error("Doctor not found");
+        }
+
+        if (!user?.id) {
+  throw new Error("Patient record is missing or invalid");
+}
+
+if (!doctor?.id) {
+  throw new Error("Doctor record is missing or invalid");
+}
+
+        if (user.credits < APPOITMENT_CREDIT_COST) {
+            throw new Error("Insufficient credits to book an appointment");
+        }
+    
+       // create credit transaction
+       const result=await db.$transaction(async (tx) => { 
+            await tx.creditTransaction.create({
+                data: {
+                    userId: user.id,
+                    amount: -APPOITMENT_CREDIT_COST, 
+                    type:"APPOINTMENT_DEDUCTION", // Type of transaction
+                   // description: ` Creds deducted for Appointment with Dr. ${doctor.name} `,
+                }
+
+            });
+            await tx.creditTransaction.create({
+                data: {
+                    userId: doctor.id,
+                    amount: APPOITMENT_CREDIT_COST, // Add the cost of the appointment to the doctor's credits
+                    type: "APPOINTMENT_DEDUCTION", 
+                    // description: ` Creds added for Appointment with Dr. ${doctor.name} `,
+                }
+            });
+        }
+        );
+
+       
+                   //deduct credits from the user
+        const updatedUser = await db.user.update({
+
+            where: {
+                id: userId,
+            },
+            data: {
+                credits: {
+                    decrement: APPOITMENT_CREDIT_COST, // Deduct the cost of the appointment
+                },
+            },
+        });
+
+        //update the doctor's credits
+        await db.user.update({
+            where: {
+                id: doctorId,
+            },
+            data: {
+                credits: {
+                    increment: APPOITMENT_CREDIT_COST, // Add the cost of the appointment to the doctor's credits
+                },
+            },
+        });
+
+       return { success: true, user: updatedUser, toast: "Credits deducted successfully" };
+
+    }
+   catch (error) {
+         console.error("Failed to deduct credits:", error.message);
+    return { success: false, error: error.message };
+  }
+
+
 }

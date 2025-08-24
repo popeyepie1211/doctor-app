@@ -1,10 +1,10 @@
 import PageHeader from '@/components/page-header';
 import { redirect } from 'next/navigation';
 import React from 'react'
-import { Card, CardContent } from "@/components/ui/card";
+
 import { doctorsListBySpecialty } from '@/actions/doctor-listing';
-import Link from 'next/link';
-import DoctorCard from '@/components/doctor-card';
+
+import { DoctorCard } from '../components/doctor-card';
 
 const SpecialtyPage = async ({ params }) => {
  

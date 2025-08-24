@@ -6,13 +6,15 @@ import { Calendar, Clock } from 'lucide-react';
 import { Tabs, TabsContent } from '@radix-ui/react-tabs';
 import { TabsList, TabsTrigger } from "@/components/ui/tabs";
 import AvailabilitySettings from './_components/availability-settings'
+import AppointmentList from './_components/appointment-list';
 
 const DoctorDashboard = async() => {
     const user= await getCurrentUser(); // Assuming you have a function to get the current user
 
     const [appointmentData,availabilityData] = await Promise.all([
-         getDoctorAppointments, getAvailabilitySlots()
+         getDoctorAppointments(), getAvailabilitySlots()
     ]);
+   
 
     if(user?.verificationStatus !== 'VERIFIED') {
         redirect('/doctor/verification');
@@ -43,7 +45,7 @@ const DoctorDashboard = async() => {
           
         </TabsList>
         <TabsContent value="appointments" className="md:col-span-3 p-4">
-          TODO
+          <AppointmentList appointments={appointmentData.appointments || []}  />
         </TabsContent>
         <TabsContent value="availability" className="md:col-span-3 p-4">
             <AvailabilitySettings slots={availabilityData.slots || []} />       {/* what this does is it passes the availability slots to the AvailabilitySettings component */}

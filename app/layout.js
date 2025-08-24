@@ -5,7 +5,7 @@ import Header from "@/components/Header";
 import { dark } from "@clerk/themes";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "sonner";
-
+import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram } from "react-icons/fa";
 
 
 
@@ -32,10 +32,80 @@ export default function RootLayout({ children }) {
             <Toaster/>
 
 
-            <footer className="bg-muted/50 py-12">
-              <div className="container mx-auto px-4 text-center text-gray-300">
-                <p>Made with Love</p>
-              </div>
+             <footer className="bg-black text-gray-300">
+      <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
+        
+        {/* Brand Section */}
+        <div className="text-center md:text-left">
+          <h2 className="text-2xl font-bold text-emerald-500">DocCare</h2>
+          <p className="mt-3 text-sm text-gray-400 leading-relaxed">
+            Your trusted healthcare partner. Book appointments, consult doctors, 
+            and stay healthy with us.
+          </p>
+        </div>
+
+        {/* Quick Links */}
+        <div className="text-center md:text-left">
+          <h3 className="text-lg font-semibold text-emerald-400 mb-4">Quick Links</h3>
+          <ul className="space-y-2">
+            {["Home", "About Us", "Services", "Contact"].map((link, i) => (
+              <li key={i}>
+                <a
+                  href="#"
+                  className="relative group transition text-gray-400"
+                >
+                  {link}
+                  <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-emerald-500 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Support */}
+        <div className="text-center md:text-left">
+          <h3 className="text-lg font-semibold text-emerald-400 mb-4">Support</h3>
+          <ul className="space-y-2">
+            {["FAQ", "Privacy Policy", "Terms & Conditions"].map((link, i) => (
+              <li key={i}>
+                <a
+                  href="#"
+                  className="relative group transition text-gray-400"
+                >
+                  {link}
+                  <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-emerald-500 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Contact */}
+        <div className="text-center md:text-left">
+          <h3 className="text-lg font-semibold text-emerald-400 mb-4">Contact Us</h3>
+          <p className="text-sm text-gray-400">📍 Mumbai, India</p>
+          <p className="text-sm text-gray-400">📞 +91 98765 43210</p>
+          <p className="text-sm text-gray-400">✉️ support@doccare.com</p>
+
+          {/* Social Icons */}
+          <div className="flex justify-center md:justify-start space-x-5 mt-5">
+            {[FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram].map((Icon, i) => (
+              <a
+                key={i}
+                href="#"
+                className="text-gray-400 hover:text-emerald-500 transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_#10B981]"
+              >
+                <Icon size={20} />
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Bottom Section */}
+      <div className="border-t border-gray-700 py-5 text-center text-xs sm:text-sm text-gray-500">
+        © {new Date().getFullYear()} DocCare. All rights reserved.
+      </div>
             </footer>
           </ThemeProvider>
         </body>
