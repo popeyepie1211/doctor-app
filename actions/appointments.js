@@ -119,13 +119,10 @@ console.log("AVAILABLE value:", SlotStatus?.AVAILABLE);
 
 
             // If the slot is in the past, skip it.
-            if(isBefore(currentTime, now)){
+            if (isBefore(next, now)) {
                 currentTime = next;
-
-                continue; 
-
-
-            }
+                      continue;
+                   }
             // Check if the current slot overlaps with any existing appointments
             // If it does not overlap, add it to the available slots for the day
             const overlaps = existingSlots.some((appointment) => {

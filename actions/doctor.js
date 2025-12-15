@@ -153,7 +153,7 @@ export async function getDoctorAppointments() {
   }
 }
 
-export async function cancelAppointments(formData) {
+export async function cancelAppointment(formData) {
 const {userId}= await auth();
 
 if(!userId){
@@ -162,11 +162,13 @@ if(!userId){
 }
 try {
 
-    const user = await db.user.findUnique({
-        where: {
-            id: userId,
-        },
-    });
+    const { userId } = await auth();
+
+const user = await db.user.findUnique({
+  where: {
+    clerkUserId: userId,
+  },
+});
 
     if (!user) {
         return { error: "User not found" };
@@ -193,10 +195,10 @@ try {
     }
 
     // Check if the user is authorized to cancel the appointment
-    if (appointment.doctorId !== userId && appointment.patientId !== userId) {
-        return { error: "You are not authorized to cancel this appointment" };
+    if (appointment.doctor.clerkUserId !== userId &&
+        appointment.patient.clerkUserId !== userId) {
+      return { error: "You are not authorized to cancel this appointment" };
     }
-
      await db.$transaction(async (tx) => {
         await tx.appointment.update({
             where: {

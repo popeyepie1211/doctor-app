@@ -167,12 +167,13 @@ const {
     }
   };
   useEffect(() => {
-    if (cancelData?.success) {
-      toast.success("Appointment cancelled successfully");
-      setOpen(false);
-    }
-  }, [cancelData]);
-
+  if (cancelData?.success) {
+    toast.success("Appointment cancelled successfully");
+    setOpen(false);
+  } else if (cancelData?.error) {
+    toast.error(cancelData.error);
+  }
+}, [cancelData]);
     return (
       <>
     <Card className="border-emerald-900/20 hover:border-emerald-700/30 transition-all">
